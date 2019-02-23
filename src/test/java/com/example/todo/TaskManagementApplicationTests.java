@@ -13,10 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import com.example.todo.controller.TodoController;
 import com.example.todo.model.Task;
 import com.example.todo.repo.TaskRepo;
 import com.example.todo.service.TaskService;

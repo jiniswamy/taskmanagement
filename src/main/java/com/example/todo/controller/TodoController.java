@@ -60,7 +60,7 @@ public class TodoController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value="/task")
-	public Task getTask(@RequestBody Task task) {;
+	public Task getTask(@Valid @RequestBody Task task) {;
 		taskService.saveTask(task);
 		return task;
 	}
