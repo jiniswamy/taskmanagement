@@ -19,8 +19,8 @@ import lombok.Setter;
 public class Task {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer taskId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Column
 	@NotNull
