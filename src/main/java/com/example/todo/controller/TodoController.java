@@ -1,13 +1,13 @@
 package com.example.todo.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.todo.model.Task;
-import com.example.todo.repo.TaskRepo;
+import com.example.todo.service.TaskService;
 import com.exmple.todo.exceptionhandlers.NotFoundException;
 
 import lombok.Data;
@@ -29,12 +29,20 @@ public class TodoController {
 	private Map<Integer, Task> tasksMap = new HashMap<Integer, Task>();
 
 	@Autowired
-	private TaskRepo taskRepo;
+	private TaskService taskService;
+	
+	@GetMapping("/")
+	public Map<String,String> getRoot(){
+		Map<String,String> map = new HashMap<>();
+		map.put("Hello", "Hello World");
+		return map;
+		
+	}
 	
 	
-	@GetMapping("/task/all")
+	@GetMapping("/tasks")
 	public Iterable<Task> getAllTasks(){
-		Iterable<Task> tasks = taskRepo.findAll();
+		Iterable<Task> tasks = taskService.getTasks();
 		
 		return tasks;
 		
@@ -42,30 +50,25 @@ public class TodoController {
 	@ResponseStatus(HttpStatus.FOUND)
 	@GetMapping(value="/task/{taskId}")
 	public Optional<Task> getTask(@PathVariable("taskId") Integer taskId) {
-		Optional<Task> task = taskRepo.findById(taskId);
+		Optional<Task> task = taskService.getTask(taskId);
 		if(!task.isPresent()) {
 			throw new NotFoundException("Task not found for this id"+ taskId);
 		}
-		//java 8
-		  /*return Optional
-		            .ofNullable(taskRepo.findById(taskId))
-		            .map( task -> ResponseEntity.ok().body(task) )          //200 OK
-		            .orElseGet( () -> ResponseEntity.notFound().build() ); */
 		return task;
 	}
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(value="/task/")
+	@PostMapping(value="/task")
 	public Task getTask(@RequestBody Task task) {;
-		taskRepo.save(task);
+		taskService.saveTask(task);
 		return task;
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(value="/task/{taskId}")
-	public Task updateTask(@PathVariable("taskId") Integer taskId, @RequestBody Task updateTask){
-		Optional<Task> optional = taskRepo.findById(taskId);
+	public Task updateTask(@PathVariable("taskId") Integer taskId, @Valid @RequestBody Task updateTask){
+		Optional<Task> optional = taskService.getTask(taskId);
 		Task task = null;
 		if(optional.isPresent()) {
 			task = optional.get();
@@ -84,9 +87,9 @@ public class TodoController {
 	@ResponseStatus(HttpStatus.OK)
 	@DeleteMapping(value="/task/{taskId}")
 	public void deleteTask(@PathVariable("taskId") Integer taskId) {
-		Optional<Task> optional = taskRepo.findById(taskId);
+		Optional<Task> optional = taskService.getTask(taskId);
 		Task task = optional.get();
-		taskRepo.delete(task);
+		taskService.deleteTask(task);
 	}
 
 }
