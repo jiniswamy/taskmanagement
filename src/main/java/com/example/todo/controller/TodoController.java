@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,9 +23,11 @@ import com.example.todo.service.TaskService;
 import com.exmple.todo.exceptionhandlers.NotFoundException;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Data
+@Slf4j
 public class TodoController {
 	private Map<Integer, Task> tasksMap = new HashMap<Integer, Task>();
 
@@ -60,8 +63,12 @@ public class TodoController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value="/task")
-	public Task getTask(@Valid @RequestBody Task task) {;
-		taskService.saveTask(task);
+	public Task getTask(@Valid @RequestBody Task task) {
+		try {
+			taskService.saveTask(task);
+		} catch (SQLGrammarException e) {
+			log.error("Received SQL Grammar Exception: messge=" + e.getMessage(), e);
+		}
 		return task;
 	}
 	
