@@ -14,20 +14,62 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: taskname
+                  name: task_name
                   type: varchar(50)
                   constraints:
                     nullable: false                  
               - column:
-                  name: currendate
+                  name: created_date
                   type: date
               - column:
-                  name: duedate
+                  name: due_date
                   type: date
               - column:
                   name: priority
                   type: int
               - column:
                   name: complete
-                  type: boolean                                    
- 
+                  type: boolean                                                
+              - column:
+                  name: user_id
+                  type: int                                                
+  - changeSet:
+      id: 2
+      author: ranjini
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: varchar(50)
+              - column:
+                  name: phone_number
+                  type: varchar(50)                  
+  - changeSet:
+      id: 3
+      author: ranjini
+      changes:
+        - createTable:
+            tableName: notification
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: subscribe
+                  type: boolean                               

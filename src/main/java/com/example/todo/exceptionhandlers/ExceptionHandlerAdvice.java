@@ -1,4 +1,4 @@
-package com.exmple.todo.exceptionhandlers;
+package com.example.todo.exceptionhandlers;
 
 import java.util.HashMap;
 import java.util.Map;

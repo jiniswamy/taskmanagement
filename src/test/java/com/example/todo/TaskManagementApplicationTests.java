@@ -35,10 +35,6 @@ public class TaskManagementApplicationTests {
 	@InjectMocks
 	TaskService taskService;
 	
-	@LocalServerPort
-	private int port;
-	
-	
 	@Test
 	public void testGetTasks() {
 		Task task = Mockito.mock(Task.class);

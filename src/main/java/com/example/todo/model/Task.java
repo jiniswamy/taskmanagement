@@ -7,20 +7,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Setter
-@Getter
+@Data
 @Entity
+@NoArgsConstructor
 public class Task {
 
+	public Task(User user, @NotNull @Size(min = 1) String taskName, Date createdDate, Date dueDate, Integer priority,
+			Boolean complete) {
+		super();
+		this.user = user;
+		this.taskName = taskName;
+		this.createdDate = createdDate;
+		this.dueDate = dueDate;
+		this.priority = priority;
+		this.complete = complete;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	@Column
 	@NotNull
