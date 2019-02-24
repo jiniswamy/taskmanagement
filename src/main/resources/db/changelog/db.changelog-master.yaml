@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: ranjini
+      validCheckSum: any
       changes:
         - createTable:
             tableName: task
@@ -36,6 +37,7 @@ databaseChangeLog:
   - changeSet:
       id: 2
       author: ranjini
+      validCheckSum: any      
       changes:
         - createTable:
             tableName: user
@@ -56,6 +58,7 @@ databaseChangeLog:
   - changeSet:
       id: 3
       author: ranjini
+      validCheckSum: any      
       changes:
         - createTable:
             tableName: notification
