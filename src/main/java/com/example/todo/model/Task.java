@@ -39,7 +39,7 @@ public class Task {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	

@@ -29,7 +29,7 @@ public class Notification {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	
