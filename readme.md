@@ -15,14 +15,14 @@ This application is designed by me to showcase Spring boot technologies.  This i
 
 Follows many of the 12 Factor App (https://12factor.net/) guiding principles for Cloud Native Development.
 
-    1.  Codebase in github and heroku.  All deploys come out of this codebase.
-    2.  All dependencies are isolated into property files.  Example is the JDBC_DATABASE_URL to set the application database url.
-    3.  All configuration like passwords are set outside the repo.  It was tested using Heroku's CLI config:set command.
-    4.  Backing services as resources: Liquibase is used to configure the database.
-    5.  Build, Release and Run are all separated. Tested with Heroku.
-    6.  The app  is a stateless process.
-    7.  Port Binding is implemented.  Please look at the Procfile for how this was achieved for Heroku.
-    9.  Disposability: Part of Spring Boot, gracefully shuts down
+   1.  Codebase in github and heroku.  All deploys come out of this codebase.
+   2.  All dependencies are isolated into property files.  Example is the JDBC_DATABASE_URL to set the application database url.
+   3.  All configuration like passwords are set outside the repo.  It was tested using Heroku's CLI config:set command.
+   4.  Backing services as resources: Liquibase is used to configure the database.
+   5.  Build, Release and Run are all separated. Tested with Heroku.
+   6.  The app  is a stateless process.
+   7.  Port Binding is implemented.  Please look at the Procfile for how this was achieved for Heroku.
+   9.  Disposability: Part of Spring Boot, gracefully shuts down
    10.  Dev/Prod Parity: The artifact is the same between dev and prod.  The same jar file can be moved between environments.
    11.  Logs as event streams. The output logs are written to the console and not to a file. 
 	     Tested this by using Heroku CLI logs command.
