@@ -29,7 +29,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and().authorizeRequests().antMatchers("/test/**", "/securityNone").permitAll().anyRequest().authenticated().and().httpBasic()
+        .and().authorizeRequests().antMatchers("/test/**", "/actuator/**").permitAll().anyRequest().authenticated().and().httpBasic()
 				.authenticationEntryPoint(authenticationEntryPoint);
 		
 		http.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
